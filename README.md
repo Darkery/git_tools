@@ -17,11 +17,19 @@ All you need to do is create your PRs.
 
 - Copy `update_submodule_in_repositories.sh` to an empty directory.
 - `chmod +x update_submodule_in_repositories.sh`
-- Run ```update_submodule_in_repositories.sh $SUMODULE_NAME $GIT_URL_1 $GIT_URL_2```
+- Run ```update_submodule_in_repositories.sh -s $SUMODULE_NAME -b $BRANCH_NAME -r $GIT_URL_1 $GIT_URL_2```
 You can add all of git repo urls you want to update their submodules.
 
+Usage:
+
+Option | Parameters
+--- | ---
+-s | $SUMODULE_NAME
+-b | $BRANCH_NAME
+-r | $GIT_URLS
+
 ```
-./update_submodule_in_repositories.sh bdh-infra-tools git@github.com:Darkery/git_tools.git
+./update_submodule_in_repositories.sh -s bdh-infra-tools -b master -r git@github.com:Darkery/git_tools.git
 ```
 
 PS: You can use both `git@github.com:Darkery/git_tools.git` and `https://github.com/Darkery/git_tools.git` as $GIT_URL.
