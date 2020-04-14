@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 function clean_branch() {
     git fetch --all
