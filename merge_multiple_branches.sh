@@ -1,5 +1,14 @@
 #!/bin/bash
-set -e
+set -ex
+
+function usage {
+  >&2 cat << EOF
+Usage:
+-c             + commit_id
+-b             + branch names
+EOF
+  exit 1;
+}
 
 function clean_branch() {
     git fetch --all
@@ -19,9 +28,28 @@ function cherry_pick_commit() {
 }
 
 if [ ! -n "$1" ]; then
-    echo "Please add the branches you want to merge."
+    usage
     exit 0
 fi
+
+while getopts ":hc:b:" opt
+do
+    case $opt in
+        h)
+        usage
+        ;;
+        c)
+        commit_id=$OPTARG
+        ;;
+        b)
+        branches=$OPTARG
+        ;;
+        ?)
+        echo "Unknow Inputs"
+        usage
+        exit 1;;
+    esac
+done
 
 echo "[Alert] This scrip will clean all your uncommitted changes and stash list!"
 read -p "Are you sure you've saved all your changes? [y/n]" input
@@ -30,14 +58,10 @@ if [[ $input != "y" ]]; then
     exit 0
 fi
 
-# master
-clean_branch "master"
-commit_id=$(git rev-parse HEAD)
-git checkout -b "merge_master_${commit_id}"
-git push -u origin "merge_master_${commit_id}"
+#commit_id=$(git rev-parse HEAD)
 
 # other branches
-for branch in "$@" ; do
+for branch in $branches ; do
     clean_branch $branch
     cherry_pick_commit $branch $commit_id
 done

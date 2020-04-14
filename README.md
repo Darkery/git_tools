@@ -2,14 +2,27 @@
 
 ## Submit Commits to Multiple Branches 
 
-- Prepare your code and add a commit in `master` branch.
+- Prepare your code with a single commit.
 - Make sure your local repo is clean.
 - Copy `merge_multiple_branches.sh` to `/` of your git repo.
 - `chmod +x merge_multiple_branches.sh`
 - Run 
-```./merge_multiple_branches.sh $BRANCH_NAME_1 $BRANCH_NAME_2'```
+```./merge_multiple_branches.sh -c $COMMIT_ID -b $BRANCH_NAMES'```
+
+Usage:
+
+Option | Parameters
+--- | ---
+-c | $COMMIT_ID
+-b | $BRANCH_NAMES
 
 You can add all of branch names that you want to submit.
+
+**Example:**
+
+```./merge_multiple_branches.sh -c 87fdf3e5a8c9fbd3baf11eca49c1564c183ce2c6 -b "master stable dev"```
+
+
 - Visit your github repo. There're already pushed branches.
 All you need to do is create your PRs.
 
@@ -28,9 +41,9 @@ Option | Parameters
 -b | $BRANCH_NAME
 -r | $GIT_URLS
 
-```
-./update_submodule_in_repositories.sh -s bdh-infra-tools -b master -r git@github.com:Darkery/git_tools.git
-```
+**Example:**
+
+```./update_submodule_in_repositories.sh -s bdh-infra-tools -b master -r "git@github.com:Darkery/git_tools.git git@github.com:Darkery/test1.git git@github.com:Darkery/test2.git"```
 
 PS: You can use both `git@github.com:Darkery/git_tools.git` and `https://github.com/Darkery/git_tools.git` as $GIT_URL.
 **But SSL type is strongly recommended.**

@@ -43,12 +43,6 @@ if [ ! -n "$1" ]; then
     exit 0
 fi
 
-read -p "Are you sure you want to update the submodule of all of these repositories? [y/n]" input
-if [[ $input != "y" ]]; then
-    echo "Process Stop."
-    exit 0
-fi
-
 while getopts ":s:b:r:" opt
 do
     case $opt in
@@ -71,8 +65,11 @@ do
     esac
 done
 
-#submodule_name=$(echo $@ | awk '{print $1}')
-#repositories=$(echo $@ | awk '{ $1=""; print $0}')
+read -p "Are you sure you want to update the submodule of all of these repositories? [y/n]" input
+if [[ $input != "y" ]]; then
+    echo "Process Stop."
+    exit 0
+fi
 
 for repository in $repositories ; do
     update_submodule $submodule_name $branch $repository
