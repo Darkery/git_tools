@@ -43,7 +43,7 @@ if [ ! -n "$1" ]; then
     exit 0
 fi
 
-while getopts ":s:b:r:" opt
+while getopts ":hs:b:r:" opt
 do
     case $opt in
         h)

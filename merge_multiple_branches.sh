@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 function usage {
   >&2 cat << EOF
