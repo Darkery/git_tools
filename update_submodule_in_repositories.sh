@@ -33,6 +33,7 @@ function update_submodule() {
     git commit -m "update submodule ${branch} ${timestamp}"
     git checkout -b "update_submodule_${branch}_${timestamp}"
     git push origin "update_submodule_${branch}_${timestamp}"
+    hub pull-request -m "update_submodule_${branch}_${timestamp}"
 
     cd ..
     rm -rf $repo_name

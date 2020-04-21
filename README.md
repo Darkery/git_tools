@@ -1,5 +1,12 @@
 # git_tools
 
+**Request:**
+
+Name | Link 
+--- | ---
+git |https://git-scm.com/
+hub | https://hub.github.com/
+
 ## Submit Commits to Multiple Branches 
 
 - Prepare your code with a single commit.
@@ -22,9 +29,7 @@ You can add all of branch names that you want to submit.
 
 ```./merge_multiple_branches.sh -c 87fdf3e5a8c9fbd3baf11eca49c1564c183ce2c6 -b "master stable dev"```
 
-
-- Visit your github repo. There're already pushed branches.
-All you need to do is create your PRs.
+- Visit your github repo. Your PRs have been created.
 
 ## Update Submodule in Multiple Repositories
 
@@ -48,4 +53,4 @@ Option | Parameters
 PS: You can use both `git@github.com:Darkery/git_tools.git` and `https://github.com/Darkery/git_tools.git` as $GIT_URL.
 **But SSL type is strongly recommended.**
 
-- Visit your github repo. There's a pushed branch. All you need to do is create your PRs.
+- Visit your github repo. Your PRs have been created.
