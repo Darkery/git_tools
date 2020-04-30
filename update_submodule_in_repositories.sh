@@ -19,7 +19,9 @@ function get_timestamp() {
 }
 
 function update_submodule() {
-    git clone $3
+    latter=$(echo $3 | awk -F '//' '{print $NF}')
+    repo_url="https://${GITHUB_USER}:${GITHUB_PASSWORD}@${latter}"
+    git clone $repo_url
     repo_name=$(echo $3 | awk -F '/' '{print $NF}' |  awk -F '.' '{print $1}')
     submodule_name=$1
     branch=$2
@@ -31,8 +33,9 @@ function update_submodule() {
     git add $submodule_name
     timestamp=$(get_timestamp)
     git commit -m "update submodule ${branch} ${timestamp}"
-    git checkout -b "update_submodule_${branch}_${timestamp}"
-    git push origin "update_submodule_${branch}_${timestamp}"
+    export FROM_BRANCH="update_submodule_${branch}_${timestamp}"
+    git checkout -b $FROM_BRANCH
+    git push $repo_url $FROM_BRANCH
 
     cd ..
     rm -rf $repo_name
@@ -64,12 +67,6 @@ do
         exit 1;;
     esac
 done
-
-read -p "Are you sure you want to update the submodule of all of these repositories? [y/n]" input
-if [[ $input != "y" ]]; then
-    echo "Process Stop."
-    exit 0
-fi
 
 for repository in $repositories ; do
     update_submodule $submodule_name $branch $repository
