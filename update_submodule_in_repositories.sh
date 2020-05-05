@@ -36,7 +36,7 @@ function update_submodule() {
     timestamp=$(get_timestamp)
     git commit -m "update submodule ${branch} ${timestamp}"
     export FROM_BRANCH="update_submodule_${branch}_${timestamp}"
-    echo "export FROM_BRANCH=${FROM_BRANCH}" > env.log
+    echo "export FROM_BRANCH=${FROM_BRANCH}" > ../env.log
     git checkout -b $FROM_BRANCH
     git push $repo_url $FROM_BRANCH
 
