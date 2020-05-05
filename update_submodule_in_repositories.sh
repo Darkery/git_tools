@@ -20,8 +20,10 @@ function get_timestamp() {
 
 function update_submodule() {
     latter=$(echo $3 | awk -F '//' '{print $NF}')
+    set +x
     repo_url="https://${GITHUB_USER}:${GITHUB_PASSWORD}@${latter}"
     git clone $repo_url
+    set -x
     repo_name=$(echo $3 | awk -F '/' '{print $NF}' |  awk -F '.' '{print $1}')
     submodule_name=$1
     branch=$2
