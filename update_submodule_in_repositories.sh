@@ -38,7 +38,9 @@ function update_submodule() {
     export FROM_BRANCH="update_submodule_${branch}_${timestamp}"
     echo "export FROM_BRANCH=${FROM_BRANCH}" > ../env.log
     git checkout -b $FROM_BRANCH
+    set +x
     git push $repo_url $FROM_BRANCH
+    set -x
 
     cd ..
     rm -rf $repo_name
