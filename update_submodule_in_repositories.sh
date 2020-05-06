@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -x
 
 function usage {
   >&2 cat << EOF
@@ -35,8 +35,13 @@ function update_submodule() {
     git add $submodule_name
     timestamp=$(get_timestamp)
     git commit -m "update submodule ${branch} ${timestamp}"
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+
     export FROM_BRANCH="update_submodule_${branch}_${timestamp}"
     echo "export FROM_BRANCH=${FROM_BRANCH}" > ../env.log
+
     git checkout -b $FROM_BRANCH
     set +x
     git push $repo_url $FROM_BRANCH
