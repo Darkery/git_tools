@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 function usage {
   >&2 cat << EOF
@@ -20,11 +19,9 @@ function get_timestamp() {
 
 function update_submodule() {
     latter=$(echo $3 | awk -F '//' '{print $NF}')
-    set +x
     repo_url="https://${GITHUB_USER}:${GITHUB_PASSWORD}@${latter}"
     git clone $repo_url
     repo_name=$(echo $3 | awk -F '/' '{print $NF}' |  awk -F '.' '{print $1}')
-    set -x
     submodule_name=$1
     branch=$2
     cd $repo_name
@@ -34,19 +31,20 @@ function update_submodule() {
     git submodule update --remote $submodule_name
     git add $submodule_name
     timestamp=$(get_timestamp)
+    set -x
     git commit -m "update submodule ${branch} ${timestamp}"
     if [ $? -ne 0 ]; then
+        echo "git commit failed. No new update commits"
         exit 1
     fi
 
     export FROM_BRANCH="update_submodule_${branch}_${timestamp}"
     echo "export FROM_BRANCH=${FROM_BRANCH}" > ../env.log
+    set +x
 
     git checkout -b $FROM_BRANCH
-    set +x
     git push $repo_url $FROM_BRANCH
     cd ..
-    set -x
     rm -rf $repo_name
 }
 
