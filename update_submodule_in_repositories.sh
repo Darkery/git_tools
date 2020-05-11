@@ -43,7 +43,7 @@ function update_submodule() {
     set +x
 
     git checkout -b $FROM_BRANCH
-    git push $repo_url $FROM_BRANCH
+    git push $repo_url --quiet $FROM_BRANCH
     cd ..
     rm -rf $repo_name
 }
